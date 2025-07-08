@@ -32,6 +32,12 @@ const Index = () => {
       return;
     }
 
+    // Show a friendly message before requesting location
+    toast({
+      title: "Allow Location Access",
+      description: "We use your location to show nearby adventures. Please allow location access in the next prompt!",
+    });
+
     setIsLoading(true);
     
     const options = {
